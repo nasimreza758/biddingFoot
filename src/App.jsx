@@ -1,22 +1,28 @@
 import { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import LiveAuction from './components/LiveAuction';
+import LockerRoom from './components/LockerRoom';
 
 function App() {
   const [role, setRole] = useState('Player');
-  const [view, setView] = useState('splash'); // 'splash', 'dashboard', 'auction'
+  const [view, setView] = useState('splash'); // 'splash', 'dashboard', 'auction', 'locker'
 
   if (view === 'dashboard') {
     return (
       <Dashboard
         onLogout={() => setView('splash')}
         onEnterDraft={() => setView('auction')}
+        onNavigate={setView}
       />
     );
   }
 
   if (view === 'auction') {
     return <LiveAuction onExit={() => setView('dashboard')} />;
+  }
+
+  if (view === 'locker') {
+    return <LockerRoom onNavigate={setView} />;
   }
 
   return (

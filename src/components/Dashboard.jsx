@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const Dashboard = ({ onLogout, onEnterDraft }) => {
+const Dashboard = ({ onLogout, onEnterDraft, onNavigate }) => {
   return (
     <div className="min-h-screen bg-background-light dark:bg-background-dark text-white font-display">
       {/* Top Navigation */}
@@ -12,6 +12,12 @@ const Dashboard = ({ onLogout, onEnterDraft }) => {
           </div>
           <nav className="hidden lg:flex items-center gap-6">
             <a href="#" className="text-primary text-sm font-bold border-b-2 border-primary pb-1">Dashboard</a>
+            <button
+              onClick={() => onNavigate('locker')}
+              className="text-white/60 hover:text-white text-sm font-bold transition-colors cursor-pointer"
+            >
+              Locker Room
+            </button>
             <a href="#" className="text-white/60 hover:text-white text-sm font-bold transition-colors">Fixtures</a>
             <a href="#" className="text-white/60 hover:text-white text-sm font-bold transition-colors">Teams</a>
             <a href="#" className="text-white/60 hover:text-white text-sm font-bold transition-colors">Players</a>
@@ -234,6 +240,7 @@ const Dashboard = ({ onLogout, onEnterDraft }) => {
 Dashboard.propTypes = {
   onLogout: PropTypes.func.isRequired,
   onEnterDraft: PropTypes.func.isRequired,
+  onNavigate: PropTypes.func.isRequired,
 };
 
 export default Dashboard;
