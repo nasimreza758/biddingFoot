@@ -2,20 +2,17 @@ import { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import LiveAuction from './components/LiveAuction';
 import LockerRoom from './components/LockerRoom';
+import Leaderboard from './components/Leaderboard';
+import Teams from './components/Teams';
+import Players from './components/Players';
+import Market from './components/Market';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [role, setRole] = useState('Player');
-  const [view, setView] = useState('splash'); // 'splash', 'dashboard', 'auction', 'locker'
+  const [view, setView] = useState('splash'); // 'splash', 'dashboard', 'auction', 'locker', 'leaderboard', 'teams', 'players', 'market'
 
-  if (view === 'dashboard') {
-    return (
-      <Dashboard
-        onLogout={() => setView('splash')}
-        onEnterDraft={() => setView('auction')}
-        onNavigate={setView}
-      />
-    );
-  }
+  const authenticatedViews = ['dashboard', 'leaderboard', 'teams', 'players', 'market'];
 
   if (view === 'auction') {
     return <LiveAuction onExit={() => setView('dashboard')} />;
@@ -23,6 +20,27 @@ function App() {
 
   if (view === 'locker') {
     return <LockerRoom onNavigate={setView} />;
+  }
+
+  if (authenticatedViews.includes(view)) {
+    return (
+      <div className="flex h-screen bg-background-dark overflow-hidden font-display">
+        <Sidebar currentView={view} onNavigate={setView} />
+        <main className="flex-1 overflow-y-auto bg-background-light dark:bg-background-dark text-white">
+          {view === 'dashboard' && (
+            <Dashboard
+              onLogout={() => setView('splash')}
+              onEnterDraft={() => setView('auction')}
+              onNavigate={setView}
+            />
+          )}
+          {view === 'leaderboard' && <Leaderboard />}
+          {view === 'teams' && <Teams />}
+          {view === 'players' && <Players />}
+          {view === 'market' && <Market />}
+        </main>
+      </div>
+    );
   }
 
   return (
