@@ -1,7 +1,13 @@
 import { useState } from 'react';
+import Dashboard from './components/Dashboard';
 
 function App() {
   const [role, setRole] = useState('Player');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  if (isLoggedIn) {
+    return <Dashboard onLogout={() => setIsLoggedIn(false)} />;
+  }
 
   return (
     <div className="relative flex h-screen w-full flex-col overflow-hidden stadium-bg">
@@ -95,7 +101,10 @@ function App() {
 
             {/* Action Buttons */}
             <div className="mt-8 space-y-4">
-              <button className="w-full h-14 bg-primary text-background-dark font-black text-lg rounded-lg shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+              <button
+                onClick={() => setIsLoggedIn(true)}
+                className="w-full h-14 bg-primary text-background-dark font-black text-lg rounded-lg shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+              >
                 ENTER THE LEAGUE <span className="material-symbols-outlined">bolt</span>
               </button>
               <div className="relative py-4 flex items-center">
